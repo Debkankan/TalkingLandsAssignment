@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: python-app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: <OUR_DOMAIN_OR_ELB_DNS>  # We have to replace <OUR_DOMAIN_OR_ELB_DNS> with the DNS of our Kubernetes ingress controller
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: python-app-service
+                port:
+                  number: 80
